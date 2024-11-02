@@ -1,6 +1,5 @@
 <?php
-namespace Veneridze\LaravelQuestion;
-
+namespace Veneridze\LaravelHoliday;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
