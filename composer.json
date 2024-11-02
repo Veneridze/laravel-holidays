@@ -31,5 +31,9 @@
             "name": "Veneridze",
             "email": "viacheslav.kopaev@yandex.ru"
         }
-    ]
+    ],
+    "require-dev": {
+        "larastan/larastan": "^2.9",
+        "overtrue/phplint": "^9.5"
+    }
 }
