@@ -4,13 +4,15 @@ namespace Veneridze\LaravelHoliday\Models;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Holiday extends Model
 {
     protected $guarded = [];
     public $timestamps = false;
 
-    public static function isHoliday(Carbon $date): bool {
+    public static function isHoliday(Carbon $date): bool
+    {
         return Holiday::where([
             'year' => $date->year,
             'month' => $date->month,
@@ -21,10 +23,10 @@ class Holiday extends Model
     //(
     public static function updateDays(int $year = null)
     {
-        if(!$year) {
+        if (!$year) {
             $year = Carbon::now()->year;
         }
-        $dates = Http::get(config('holidays.link')($year))->json();
+        $dates = Http::get(Str::replace("%year%", $year, config('holidays.link')))->json();
 
         foreach ($dates['holidays'] as $holiday) {
             $date = Carbon::parse($holiday['date']);
