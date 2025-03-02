@@ -10,7 +10,6 @@ class Holiday extends Model
 {
     protected $guarded = [];
     public $timestamps = false;
-
     public static function isHoliday(Carbon $date): bool
     {
         return Holiday::where([
@@ -20,7 +19,16 @@ class Holiday extends Model
             'isShort' => false
         ])->count() > 0;
     }
-    //(
+    public static function nextWorkDay(Carbon $date, int $duration = 1): Carbon
+    {
+        for ($i = 0; $i < $duration; $i++) {
+            $current = (new Carbon($date))->addDays($i);
+            if ($current->isHoliday() || $current->isSaturday() || $current->isSunday()) {
+                $duration++;
+            }
+        }
+        return (new Carbon($date))->addDays($duration);
+    }
     public static function updateDays(int $year = null)
     {
         if (!$year) {
