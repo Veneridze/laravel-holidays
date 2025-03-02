@@ -1,10 +1,12 @@
 <?php
 namespace Veneridze\LaravelHoliday;
 
+use Carbon\Carbon;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Veneridze\LaravelHoliday\Commands\UpdateHolidays;
+use Veneridze\LaravelHoliday\Models\Holiday;
 
 class HolidayProvider extends PackageServiceProvider
 {
@@ -18,16 +20,20 @@ class HolidayProvider extends PackageServiceProvider
                 'create_holidays_table',
             ])
             ->publishesServiceProvider('HolidayProvider')
-            ->hasInstallCommand(function(InstallCommand $command) {
+            ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
                     ->publishMigrations();
-                    //->copyAndRegisterServiceProviderInApp();
+                //->copyAndRegisterServiceProviderInApp();
             });
     }
 
     public function packageBooted(): void
     {
+        Carbon::macro('isHoliday', fn() => Holiday::isHoliday($date));
+        // Carbon::macro('notHoliday', function () {
+        //     return $this->year % 4 === 0 && ($this->year % 100 !== 0 || $this->year % 400 === 0);
+        // });
         //$mediaClass = config('media-library.media_model', Media::class);
 
         //$mediaClass::observe(new MediaObserver);
