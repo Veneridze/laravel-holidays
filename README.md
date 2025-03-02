@@ -34,6 +34,7 @@
 
 ```php
   $date = Carbon::now();
+  $date->isHoliday();
   Holiday::isHoliday($date);
 ```
 
