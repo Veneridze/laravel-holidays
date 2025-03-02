@@ -30,7 +30,7 @@ class HolidayProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        Carbon::macro('isHoliday', fn(Carbon $date) => Holiday::isHoliday($date));
+        Carbon::macro('isHoliday', static fn() => Holiday::isHoliday(self::this()));
         // Carbon::macro('notHoliday', function () {
         //     return $this->year % 4 === 0 && ($this->year % 100 !== 0 || $this->year % 400 === 0);
         // });
