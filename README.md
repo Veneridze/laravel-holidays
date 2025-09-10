@@ -38,7 +38,7 @@
   Holiday::isHoliday($date);
 ```
 
-Использование правил валиации
+Использование правил валидации
 
 ```php
 use Veneridze\LaravelHoliday\Validation\DayIsHoliday;
